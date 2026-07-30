@@ -60,7 +60,7 @@ const menuItems = [
     category: "Tacos",
     description: "Poulet, frites et sauce fromagère.",
     price: "16,99 $",
-    image: "1450df71-1e33-4c0b-8b32-45ab7f310b71.png",
+    image: "ecfc1035-5cd2-41c2-a33d-20be7cf8fd9f.png",
     tags: ["Tacos"],
   },
   {
