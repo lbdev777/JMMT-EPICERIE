@@ -159,12 +159,21 @@ button {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  font-weight: 700;
 }
 
 .rail-button.active {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
+}
+
+.rail-icon {
+  line-height: 1;
+}
+
+.rail-text {
+  display: none;
 }
 
 .content {
@@ -1145,6 +1154,9 @@ body.modal-open {
 }
 
 .primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   border-radius: 18px;
   padding: 14px 18px;
@@ -1152,6 +1164,7 @@ body.modal-open {
   color: #fff;
   font-weight: 700;
   min-height: 48px;
+  text-decoration: none;
 }
 
 .subtle-card {
@@ -1161,10 +1174,16 @@ body.modal-open {
 @media (max-width: 1200px) {
   .page-shell {
     grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 16px 16px 28px;
   }
 
   .rail {
     display: none;
+  }
+
+  .featured-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .right-rail {
@@ -1173,8 +1192,215 @@ body.modal-open {
 }
 
 @media (max-width: 780px) {
+  .topbar-inner {
+    padding: 10px 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .brand-inline {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .store-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .brand-inline strong {
+    display: block;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .brand-inline span {
+    font-size: 0.8rem;
+  }
+
+  .location-pill {
+    order: 3;
+    width: 100%;
+    min-width: 0;
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+
+  .topbar-actions {
+    margin-left: auto;
+  }
+
+  .chip-button {
+    padding: 10px 13px;
+  }
+
+  .store-hero {
+    border-radius: 16px;
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .store-hero-overlay {
+    align-items: center;
+  }
+
+  .hero-logo {
+    width: 52px;
+    height: 52px;
+    border-width: 2px;
+  }
+
+  .store-hero h1 {
+    font-size: clamp(1.3rem, 6vw, 1.7rem);
+    line-height: 1.14;
+  }
+
+  .store-meta {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .address-signin {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .address-bar {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .compact-summary,
+  .inside-photo-card,
+  .epicerie-gallery-card,
+  .menu-card-shell,
+  .dash-cart,
+  .review-card {
+    border-radius: 14px;
+  }
+
+  .epicerie-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .featured-strip,
+  .reviews-grid,
+  .right-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .review-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .review-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .review-gallery img {
+    height: 150px;
+  }
+
+  .item-modal {
+    padding: 12px;
+  }
+
+  .item-modal-panel {
+    border-radius: 20px;
+  }
+
+  body {
+    padding-bottom: 84px;
+  }
+
   .rail {
-    display: none;
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 35;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 34px rgba(17, 17, 17, 0.16);
+    backdrop-filter: blur(10px);
+  }
+
+  .rail-button {
+    width: 100%;
+    min-height: 44px;
+    height: auto;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 4px;
+    font-size: 1rem;
+  }
+
+  .rail-text {
+    display: block;
+    font-size: 0.69rem;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 520px) {
+  .page-shell {
+    padding: 12px 12px 22px;
+  }
+
+  .section-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .menu-card {
+    padding: 10px;
+  }
+
+  .menu-card-visual {
+    height: 114px;
+  }
+
+  .menu-card p {
+    font-size: 0.88rem;
+  }
+
+  .epicerie-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .review-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .review-gallery img {
+    height: 170px;
+  }
+
+  .cart-item {
+    align-items: flex-start;
+  }
+
+  .cart-item button {
+    margin-top: 2px;
   }
 }
 
