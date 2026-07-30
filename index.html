@@ -30,10 +30,22 @@
 
     <div class="page-shell">
       <aside class="rail" aria-label="Navigation rapide">
-        <a class="rail-button active" href="#top" aria-label="Accueil">⌂</a>
-        <a class="rail-button" href="#reviews" aria-label="Favoris">❤</a>
-        <a class="rail-button" href="#menu" aria-label="Commande">◫</a>
-        <a class="rail-button" href="#contact-services" aria-label="Compte">◌</a>
+        <a class="rail-button active" href="#top" aria-label="Accueil">
+          <span class="rail-icon" aria-hidden="true">⌂</span>
+          <span class="rail-text">Accueil</span>
+        </a>
+        <a class="rail-button" href="#menu" aria-label="Menu">
+          <span class="rail-icon" aria-hidden="true">◫</span>
+          <span class="rail-text">Menu</span>
+        </a>
+        <a class="rail-button" href="#reviews" aria-label="Reviews">
+          <span class="rail-icon" aria-hidden="true">❤</span>
+          <span class="rail-text">Reviews</span>
+        </a>
+        <a class="rail-button" href="#contact-services" aria-label="Horaire">
+          <span class="rail-icon" aria-hidden="true">⏰</span>
+          <span class="rail-text">Horaire</span>
+        </a>
       </aside>
 
       <main class="content" id="top">
@@ -46,11 +58,11 @@
               <p class="store-meta">146 de la Cathédrale, QC · 5,0 sur Google · 4,8 sur DoorDash · 4,9 sur RestoEnLigne.com</p>
             </div>
           </div>
-          <label class="address-bar" for="searchInput">
+          <label class="address-bar" for="menuSearchInput">
             <span>⌕</span>
             <input id="menuSearchInput" type="search" placeholder="Rechercher un produit ou un rayon" />
           </label>
-          <button class="address-signin" type="button">Voir les horaires</button>
+          <a class="address-signin" href="#contact-services">Voir les horaires</a>
         </section>
 
         <section class="store-summary compact-summary">
@@ -59,7 +71,7 @@
         </section>
 
         <section class="inside-photo-card" aria-label="Photo intérieure du magasin">
-          <img src="0efc2659-c9fc-40c7-b7fb-45a94a081d97.png" alt="Intérieur du magasin JMMT" />
+          <img src="0efc2659-c9fc-40c7-b7fb-45a94a081d97.jpg" alt="Intérieur du magasin JMMT" />
           <p>À l’intérieur de JMMT</p>
         </section>
 
@@ -243,7 +255,7 @@
             <span>Téléphone</span>
             <strong>Disponible en boutique</strong>
           </div>
-          <button class="primary-button" type="button">Appeler le magasin</button>
+          <a class="primary-button" href="tel:+14187275948">Appeler le magasin</a>
         </section>
       </aside>
     </div>
