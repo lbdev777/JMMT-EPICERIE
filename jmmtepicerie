@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jmmt Épicerie Restaurant Boucherie Inc</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand-inline brand-home-link" href="index.html" aria-label="Retour à l'accueil">
+          <img class="store-logo" src="3dfe10e2-b64a-48d9-94c2-fff4548eb5bc.png" alt="Logo JMMT" />
+          <div>
+            <strong>Jmmt Épicerie Restaurant Boucherie Inc</strong>
+            <span>Épicerie, restaurant, boucherie</span>
+          </div>
+        </a>
+
+        <label class="location-pill" for="menuSearchInput">
+          <span>Adresse du magasin</span>
+          <strong>146 de la Cathédrale, QC</strong>
+        </label>
+
+        <div class="topbar-actions">
+          <a class="chip-button" href="tel:+14187275948">418-727-5948</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-shell">
+      <aside class="rail">
+        <button class="rail-button active" type="button" aria-label="Accueil">⌂</button>
+        <button class="rail-button" type="button" aria-label="Favoris">❤</button>
+        <button class="rail-button" type="button" aria-label="Commande">◫</button>
+        <button class="rail-button" type="button" aria-label="Compte">◌</button>
+      </aside>
+
+      <main class="content">
+        <section class="store-hero">
+          <div class="store-hero-overlay">
+            <img class="hero-logo" src="3dfe10e2-b64a-48d9-94c2-fff4548eb5bc.png" alt="Logo JMMT" />
+            <div>
+              <p class="eyebrow inverse">Jmmt Épicerie Restaurant Boucherie Inc</p>
+              <h1>Produits frais, viande, épicerie et plats préparés</h1>
+              <p class="store-meta">146 de la Cathédrale, QC · 5,0 sur Google · 4,8 sur DoorDash · 4,9 sur RestoEnLigne.com</p>
+            </div>
+          </div>
+          <label class="address-bar" for="searchInput">
+            <span>⌕</span>
+            <input id="menuSearchInput" type="search" placeholder="Rechercher un produit ou un rayon" />
+          </label>
+          <button class="address-signin" type="button">Voir les horaires</button>
+        </section>
+
+        <section class="store-summary compact-summary">
+          <p class="eyebrow">Infos boutique</p>
+          <p>Épicerie, restaurant et boucherie de quartier. Ouvert chaque jour avec horaire variable.</p>
+        </section>
+
+        <section class="inside-photo-card" aria-label="Photo intérieure du magasin">
+          <img src="0efc2659-c9fc-40c7-b7fb-45a94a081d97.png" alt="Intérieur du magasin JMMT" />
+          <p>À l’intérieur de JMMT</p>
+        </section>
+
+        <section class="epicerie-gallery-card" aria-label="Photos du rayon épicerie">
+          <p class="eyebrow">Côté épicerie</p>
+          <div class="epicerie-gallery-grid">
+            <a href="epiceriejmmtstock.png" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo du rayon épicerie">
+              <img src="epiceriejmmtstock.png" alt="Rayon épicerie de JMMT" />
+            </a>
+            <a href="ChatGPT Image 30 juill. 2026, 00 h 43 min 19 s.png" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo du rayon épicerie 1">
+              <img src="ChatGPT Image 30 juill. 2026, 00 h 43 min 19 s.png" alt="Photo du rayon épicerie JMMT 1" />
+            </a>
+            <a href="ChatGPT Image 30 juill. 2026, 00 h 45 min 04 s.png" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo du rayon épicerie 2">
+              <img src="ChatGPT Image 30 juill. 2026, 00 h 45 min 04 s.png" alt="Photo du rayon épicerie JMMT 2" />
+            </a>
+            <a href="ChatGPT Image 30 juill. 2026, 00 h 48 min 28 s.png" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo du rayon épicerie 3">
+              <img src="ChatGPT Image 30 juill. 2026, 00 h 48 min 28 s.png" alt="Photo du rayon épicerie JMMT 3" />
+            </a>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-head compact">
+            <div>
+                <h3>Menu</h3>
+              <p id="resultCount"></p>
+            </div>
+          </div>
+          <div class="featured-strip" id="menuGrid"></div>
+        </section>
+          <section class="section-block reviews-section" id="reviews">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Évaluations / Avis</p>
+                <h3>5,0 sur Google · 4,8 sur DoorDash · 4,9 sur RestoEnLigne.com</h3>
+              </div>
+              <a class="text-button" href="https://www.google.com/search?sca_esv=6a3fe383592f5408&sxsrf=APpeQnsUINjX0PhFFAuorokyk25knFdGZQ:1785379279941&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_xEuXkWyZuP4E8l8r6xIOT86LlGyA7Hi86NTSt8s54H624atnvnJ1zNwAZJRKk4g0pF4YAPTkaIXei_M1WBcCiLMLuk0HEFJiuxTD5uEu2DIpSEiR_VGRzfwff4hLVR4hKGRlGk%3D&q=JMMT+%C3%89PICERIE.RESTAURANT+BOUCHERIE.+Avis&sa=X&ved=2ahUKEwi0tJSOsPmVAxVwj4kEHavFInwQ0bkNegQIJxAF&biw=1920&bih=945&dpr=1" target="_blank" rel="noreferrer">Voir tous les avis</a>
+            </div>
+
+            <div class="reviews-grid">
+              <article class="review-card">
+                <div class="review-card-head">
+                  <strong>Joël Labrosse-Blier</strong>
+                  <span>26 juil. 2026 · 4,0</span>
+                </div>
+                <p>Excellente Cuisine , aliments frais ! Le cuisinier est très sympathique. Définitivement les meilleurs pita à Rimouski</p>
+                <div class="review-gallery">
+                  <img src="reviewjmmt434.webp" alt="Photo du repas partagée par Joël Labrosse-Blier" />
+                </div>
+                <div class="review-tags">
+                  <span>Service</span>
+                  <span>Pitas</span>
+                  <span>Qualité</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <div class="review-card-head">
+                  <strong>Claudia Bilodeau</strong>
+                  <span>15 juin 2026 · 4,7</span>
+                </div>
+                <p>Très très excellent en bouche. Sincèrement, Miam !!! On va revenir</p>
+                <div class="review-gallery">
+                  <img src="u345345nnamed.webp" alt="Photo du repas partagée par Claudia Bilodeau" />
+                </div>
+                <div class="review-tags">
+                  <span>Saveur</span>
+                  <span>Retour client</span>
+                  <span>Recommandé</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <div class="review-card-head">
+                  <strong>Salima Haddad</strong>
+                  <span>3 juin 2026 · 5,0</span>
+                </div>
+                <p>C’était très bon ! Les plats étaient savoureux et le service très sympathique. Merci !</p>
+                <div class="review-gallery">
+                  <img src="4f77f6af-9c33-4558-89a1-d1b83484fc06.png" alt="Photo de l’assiette mixte partagée par Salima Haddad" />
+                </div>
+                <div class="review-tags">
+                  <span>Assiette mixte</span>
+                  <span>Plats savoureux</span>
+                  <span>Service sympa</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <div class="review-card-head">
+                  <strong>Louis Gendreau</strong>
+                  <span>19 avr. 2026 · 5,0</span>
+                </div>
+                <p>Le meilleur pita au poulet de ma vie! Vraiment excellent! Longue vie à JMMT!</p>
+                <div class="review-tags">
+                  <span>Pita poulet</span>
+                  <span>Excellent</span>
+                  <span>5,0</span>
+                </div>
+              </article>
+
+              <article class="review-card review-card-wide">
+                <div class="review-card-head">
+                  <strong>Mohammed Arif</strong>
+                  <span>il y a 2 mois · 5,0</span>
+                </div>
+                <p>J’ai goûté les tacos au poulet ainsi que les tacos mixtes, et ce fut une excellente découverte. Le service est professionnel, et les produits proposés sont variés et soigneusement sélectionnés afin de satisfaire différents goûts.</p>
+                <div class="review-gallery">
+                  <img src="unnamedTACOOSJMMT.webp" alt="Photo du repas partagée par Mohammed Arif" />
+                  <img src="unnamed5435.webp" alt="Deuxième photo du repas partagée par Mohammed Arif" />
+                </div>
+                <div class="review-tags">
+                  <span>Tacos mixtes</span>
+                  <span>Professionnel</span>
+                  <span>Produits variés</span>
+                </div>
+              </article>
+            </div>
+          </section>
+      </main>
+
+      <aside class="right-rail">
+        <section class="menu-card-shell">
+          <p class="section-label dark">Rayons</p>
+          <div class="category-list" id="categoryList"></div>
+        </section>
+
+        <section class="cart-card dash-cart">
+          <p class="section-label dark">Infos magasin</p>
+          <h3>Contact & services</h3>
+          <a class="review-link" href="#reviews">
+            <span class="rating-chip">
+              <span class="rating-star" aria-hidden="true">&#9733;</span>
+              <strong>5,0</strong>
+              <span>Google</span>
+            </span>
+            <span class="rating-chip">
+              <span class="rating-star" aria-hidden="true">&#9733;</span>
+              <strong>4,8</strong>
+              <span>DoorDash</span>
+            </span>
+            <span class="rating-chip">
+              <span class="rating-star" aria-hidden="true">&#9733;</span>
+              <strong>4,9</strong>
+              <span>RestoEnLigne.com</span>
+            </span>
+          </a>
+          <div class="cart-item">
+            <div>
+              <strong>Adresse</strong>
+              <span>146 de la Cathédrale, QC</span>
+            </div>
+            <button type="button">↗</button>
+          </div>
+          <div class="cart-item">
+            <div>
+              <strong>Horaires</strong>
+              <span>
+                Lundi 10h00 - 23h30<br />
+                Mardi 10h00 - 23h30<br />
+                Mercredi 10h00 - 23h30<br />
+                Jeudi 10h00 - 23h30<br />
+                Vendredi 13h30 - 1h00<br />
+                Samedi 10h00 - 1h00<br />
+                Dimanche 10h00 - 23h30
+              </span>
+            </div>
+            <button type="button">⏰</button>
+          </div>
+          <div class="cart-total">
+            <span>Téléphone</span>
+            <strong>Disponible en boutique</strong>
+          </div>
+          <button class="primary-button" type="button">Appeler le magasin</button>
+        </section>
+      </aside>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
