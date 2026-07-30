@@ -470,7 +470,7 @@ function renderCategories() {
         return;
       }
 
-      window.location.href = `category.html?category=${encodeURIComponent(category)}`;
+      window.location.href = `index.html?category=${encodeURIComponent(category)}#menu`;
     });
   });
 }
