@@ -717,6 +717,122 @@ function initEpicerieGalleryLightbox() {
   });
 }
 
+let reviewGalleryLinks = [];
+let reviewLightboxIndex = 0;
+
+function ensureReviewLightbox() {
+  let lightbox = document.getElementById("reviewLightbox");
+  if (lightbox) {
+    return lightbox;
+  }
+
+  lightbox = document.createElement("div");
+  lightbox.id = "reviewLightbox";
+  lightbox.className = "gallery-lightbox";
+  lightbox.innerHTML = `
+    <div class="gallery-lightbox-backdrop" data-action="close"></div>
+    <div class="gallery-lightbox-panel" role="dialog" aria-modal="true" aria-label="Photo d'avis en grand">
+      <button class="gallery-lightbox-close" type="button" aria-label="Fermer" data-action="close">×</button>
+      <button class="gallery-lightbox-nav prev" type="button" aria-label="Image précédente" data-action="prev">‹</button>
+      <img id="reviewLightboxImage" src="" alt="" />
+      <button class="gallery-lightbox-nav next" type="button" aria-label="Image suivante" data-action="next">›</button>
+      <p id="reviewLightboxCaption"></p>
+    </div>
+  `;
+
+  document.body.appendChild(lightbox);
+
+  lightbox.addEventListener("click", (event) => {
+    const actionTarget = event.target.closest("[data-action]");
+    if (!actionTarget) {
+      return;
+    }
+
+    const action = actionTarget.dataset.action;
+    if (action === "close") {
+      closeReviewLightbox();
+    } else if (action === "prev") {
+      moveReviewLightbox(-1);
+    } else if (action === "next") {
+      moveReviewLightbox(1);
+    }
+  });
+
+  return lightbox;
+}
+
+function renderReviewLightboxImage(index) {
+  const image = document.getElementById("reviewLightboxImage");
+  const caption = document.getElementById("reviewLightboxCaption");
+  if (!image || !caption || !reviewGalleryLinks.length) {
+    return;
+  }
+
+  const currentIndex = (index + reviewGalleryLinks.length) % reviewGalleryLinks.length;
+  reviewLightboxIndex = currentIndex;
+  const link = reviewGalleryLinks[currentIndex];
+  const img = link.querySelector("img");
+
+  image.classList.add("is-switching");
+  image.src = link.getAttribute("href") || "";
+  image.alt = img?.alt || "Photo d'avis";
+  caption.textContent = `${currentIndex + 1} / ${reviewGalleryLinks.length}`;
+
+  requestAnimationFrame(() => {
+    image.classList.remove("is-switching");
+  });
+}
+
+function openReviewLightbox(index) {
+  const lightbox = ensureReviewLightbox();
+  lightbox.classList.add("open");
+  document.body.classList.add("modal-open");
+  renderReviewLightboxImage(index);
+}
+
+function moveReviewLightbox(step) {
+  renderReviewLightboxImage(reviewLightboxIndex + step);
+}
+
+function closeReviewLightbox() {
+  const lightbox = document.getElementById("reviewLightbox");
+  if (!lightbox) {
+    return;
+  }
+
+  lightbox.classList.remove("open");
+  document.body.classList.remove("modal-open");
+}
+
+function initReviewGalleryLightbox() {
+  reviewGalleryLinks = [...document.querySelectorAll(".review-gallery a")];
+  if (!reviewGalleryLinks.length) {
+    return;
+  }
+
+  reviewGalleryLinks.forEach((link, index) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      openReviewLightbox(index);
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const lightbox = document.getElementById("reviewLightbox");
+    if (!lightbox || !lightbox.classList.contains("open")) {
+      return;
+    }
+
+    if (event.key === "Escape") {
+      closeReviewLightbox();
+    } else if (event.key === "ArrowLeft") {
+      moveReviewLightbox(-1);
+    } else if (event.key === "ArrowRight") {
+      moveReviewLightbox(1);
+    }
+  });
+}
+
 if (searchInput) {
   searchInput.addEventListener("input", (event) => {
     searchTerm = event.target.value;
@@ -749,3 +865,4 @@ if (menuGrid) {
 }
 
 initEpicerieGalleryLightbox();
+initReviewGalleryLightbox();
