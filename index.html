@@ -29,14 +29,14 @@
     </header>
 
     <div class="page-shell">
-      <aside class="rail">
-        <button class="rail-button active" type="button" aria-label="Accueil">⌂</button>
-        <button class="rail-button" type="button" aria-label="Favoris">❤</button>
-        <button class="rail-button" type="button" aria-label="Commande">◫</button>
-        <button class="rail-button" type="button" aria-label="Compte">◌</button>
+      <aside class="rail" aria-label="Navigation rapide">
+        <a class="rail-button active" href="#top" aria-label="Accueil">⌂</a>
+        <a class="rail-button" href="#reviews" aria-label="Favoris">❤</a>
+        <a class="rail-button" href="#menu" aria-label="Commande">◫</a>
+        <a class="rail-button" href="#contact-services" aria-label="Compte">◌</a>
       </aside>
 
-      <main class="content">
+      <main class="content" id="top">
         <section class="store-hero">
           <div class="store-hero-overlay">
             <img class="hero-logo" src="3dfe10e2-b64a-48d9-94c2-fff4548eb5bc.png" alt="Logo JMMT" />
@@ -81,7 +81,7 @@
           </div>
         </section>
 
-        <section class="section-block">
+        <section class="section-block" id="menu">
           <div class="section-head compact">
             <div>
                 <h3>Menu</h3>
@@ -107,7 +107,9 @@
                 </div>
                 <p>Excellente Cuisine , aliments frais ! Le cuisinier est très sympathique. Définitivement les meilleurs pita à Rimouski</p>
                 <div class="review-gallery">
-                  <img src="reviewjmmt434.webp" alt="Photo du repas partagée par Joël Labrosse-Blier" />
+                  <a href="reviewjmmt434.webp" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo du repas partagée par Joël Labrosse-Blier">
+                    <img src="reviewjmmt434.webp" alt="Photo du repas partagée par Joël Labrosse-Blier" />
+                  </a>
                 </div>
                 <div class="review-tags">
                   <span>Service</span>
@@ -123,7 +125,9 @@
                 </div>
                 <p>Très très excellent en bouche. Sincèrement, Miam !!! On va revenir</p>
                 <div class="review-gallery">
-                  <img src="u345345nnamed.webp" alt="Photo du repas partagée par Claudia Bilodeau" />
+                  <a href="u345345nnamed.webp" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo du repas partagée par Claudia Bilodeau">
+                    <img src="u345345nnamed.webp" alt="Photo du repas partagée par Claudia Bilodeau" />
+                  </a>
                 </div>
                 <div class="review-tags">
                   <span>Saveur</span>
@@ -139,7 +143,9 @@
                 </div>
                 <p>C’était très bon ! Les plats étaient savoureux et le service très sympathique. Merci !</p>
                 <div class="review-gallery">
-                  <img src="4f77f6af-9c33-4558-89a1-d1b83484fc06.png" alt="Photo de l’assiette mixte partagée par Salima Haddad" />
+                  <a href="4f77f6af-9c33-4558-89a1-d1b83484fc06.png" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo de l’assiette mixte partagée par Salima Haddad">
+                    <img src="4f77f6af-9c33-4558-89a1-d1b83484fc06.png" alt="Photo de l’assiette mixte partagée par Salima Haddad" />
+                  </a>
                 </div>
                 <div class="review-tags">
                   <span>Assiette mixte</span>
@@ -168,8 +174,12 @@
                 </div>
                 <p>J’ai goûté les tacos au poulet ainsi que les tacos mixtes, et ce fut une excellente découverte. Le service est professionnel, et les produits proposés sont variés et soigneusement sélectionnés afin de satisfaire différents goûts.</p>
                 <div class="review-gallery">
-                  <img src="unnamedTACOOSJMMT.webp" alt="Photo du repas partagée par Mohammed Arif" />
-                  <img src="unnamed5435.webp" alt="Deuxième photo du repas partagée par Mohammed Arif" />
+                  <a href="unnamedTACOOSJMMT.webp" target="_blank" rel="noreferrer" aria-label="Ouvrir la première photo du repas partagée par Mohammed Arif">
+                    <img src="unnamedTACOOSJMMT.webp" alt="Photo du repas partagée par Mohammed Arif" />
+                  </a>
+                  <a href="unnamed5435.webp" target="_blank" rel="noreferrer" aria-label="Ouvrir la deuxième photo du repas partagée par Mohammed Arif">
+                    <img src="unnamed5435.webp" alt="Deuxième photo du repas partagée par Mohammed Arif" />
+                  </a>
                 </div>
                 <div class="review-tags">
                   <span>Tacos mixtes</span>
@@ -187,7 +197,7 @@
           <div class="category-list" id="categoryList"></div>
         </section>
 
-        <section class="cart-card dash-cart">
+        <section class="cart-card dash-cart" id="contact-services">
           <p class="section-label dark">Infos magasin</p>
           <h3>Contact & services</h3>
           <a class="review-link" href="#reviews">
@@ -241,4 +251,3 @@
     <script src="app.js"></script>
   </body>
 </html>
-
