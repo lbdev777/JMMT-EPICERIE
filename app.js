@@ -867,6 +867,16 @@ function closeHoursModal() {
   document.body.classList.remove("modal-open");
 }
 
+function removeLegacyPhoneRow() {
+  const rows = document.querySelectorAll(".cart-total");
+  rows.forEach((row) => {
+    const text = row.textContent || "";
+    if (/telephone|téléphone|disponible en boutique/i.test(text)) {
+      row.remove();
+    }
+  });
+}
+
 function initReviewGalleryLightbox() {
   reviewGalleryLinks = [...document.querySelectorAll(".review-gallery a")];
   if (!reviewGalleryLinks.length) {
@@ -980,6 +990,7 @@ if (menuGrid) {
 
 initEpicerieGalleryLightbox();
 initReviewGalleryLightbox();
+removeLegacyPhoneRow();
 openPreviewWarning();
 
 if (hoursTrigger) {
