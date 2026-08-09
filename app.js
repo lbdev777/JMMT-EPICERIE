@@ -906,57 +906,6 @@ function initReviewGalleryLightbox() {
   });
 }
 
-function ensurePreviewWarning() {
-  let warning = document.getElementById("previewWarning");
-  if (warning) {
-    return warning;
-  }
-
-  warning = document.createElement("div");
-  warning.id = "previewWarning";
-  warning.className = "preview-warning";
-  warning.innerHTML = `
-    <div class="preview-warning-backdrop"></div>
-    <div class="preview-warning-panel" role="dialog" aria-modal="true" aria-labelledby="previewWarningTitle">
-      <span class="preview-warning-label">Aperçu privé</span>
-      <h2 id="previewWarningTitle">APERÇU DU SITE</h2>
-      <p>
-        Cette version est fournie uniquement pour la validation visuelle du propriétaire.
-        Le contenu, le design et le code ne sont pas autorisés pour une réutilisation,
-        une copie ou une publication sans accord écrit et sans avoir été acheté.
-      </p>
-      <div class="preview-warning-actions">
-        <button type="button" id="previewWarningConfirm">J'ai compris</button>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(warning);
-
-  const confirmButton = document.getElementById("previewWarningConfirm");
-  if (confirmButton) {
-    confirmButton.addEventListener("click", closePreviewWarning);
-  }
-
-  return warning;
-}
-
-function openPreviewWarning() {
-  const warning = ensurePreviewWarning();
-  warning.classList.add("open");
-  document.body.classList.add("preview-warning-open");
-}
-
-function closePreviewWarning() {
-  const warning = document.getElementById("previewWarning");
-  if (!warning) {
-    return;
-  }
-
-  warning.classList.remove("open");
-  document.body.classList.remove("preview-warning-open");
-}
-
 if (searchInput) {
   searchInput.addEventListener("input", (event) => {
     searchTerm = event.target.value;
@@ -991,7 +940,6 @@ if (menuGrid) {
 initEpicerieGalleryLightbox();
 initReviewGalleryLightbox();
 removeLegacyPhoneRow();
-openPreviewWarning();
 
 if (hoursTrigger) {
   hoursTrigger.addEventListener("click", (event) => {
