@@ -931,6 +931,62 @@ function ensurePreviewWarning() {
   return warning;
 }
 
+function ensureTestPopup() {
+  let popup = document.getElementById("testPopup");
+  if (popup) {
+    return popup;
+  }
+
+  popup = document.createElement("div");
+  popup.id = "testPopup";
+  popup.className = "test-popup";
+  popup.innerHTML = `
+    <div class="test-popup-backdrop" data-close="true"></div>
+    <div class="test-popup-panel" role="dialog" aria-modal="true" aria-labelledby="testPopupTitle">
+      <h3 id="testPopupTitle">TEST</h3>
+      <div class="test-popup-actions">
+        <button class="test-popup-close" type="button" data-close="true">Fermer</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  popup.addEventListener("click", (event) => {
+    const closeTarget = event.target.closest("[data-close='true']");
+    if (closeTarget) {
+      closeTestPopup();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && popup.classList.contains("open")) {
+      closeTestPopup();
+    }
+  });
+
+  return popup;
+}
+
+function openTestPopup() {
+  const popup = ensureTestPopup();
+  if (popup.classList.contains("open")) {
+    return;
+  }
+  popup.classList.add("open");
+  document.body.classList.add("modal-open");
+}
+
+function closeTestPopup() {
+  const popup = document.getElementById("testPopup");
+  if (!popup) {
+    return;
+  }
+
+  popup.classList.remove("open");
+  document.body.classList.remove("modal-open");
+}
+
 function openPreviewWarning() {
   const warning = ensurePreviewWarning();
   warning.classList.add("open");
@@ -945,6 +1001,7 @@ function closePreviewWarning() {
 
   warning.classList.remove("open");
   document.body.classList.remove("preview-warning-open");
+  openTestPopup();
 }
 
 if (searchInput) {
@@ -981,6 +1038,7 @@ if (menuGrid) {
 initEpicerieGalleryLightbox();
 initReviewGalleryLightbox();
 openPreviewWarning();
+openTestPopup();
 
 if (hoursTrigger) {
   hoursTrigger.addEventListener("click", (event) => {
