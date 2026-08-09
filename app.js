@@ -210,6 +210,8 @@ const categoryList = document.getElementById("categoryList");
 const menuGrid = document.getElementById("menuGrid");
 const searchInput = document.getElementById("menuSearchInput");
 const resultCount = document.getElementById("resultCount");
+const hoursTrigger = document.getElementById("openHoursModal");
+const storeHoursContent = document.getElementById("storeHoursContent");
 
 const meatOptions = ["Poulet", "Viande hachée", "Merguez", "Veau"];
 const assietteMixteMeatOptions = ["Poulet", "Viande hachée", "Merguez"];
@@ -804,6 +806,67 @@ function closeReviewLightbox() {
   document.body.classList.remove("modal-open");
 }
 
+function ensureHoursModal() {
+  let modal = document.getElementById("hoursModal");
+  if (modal) {
+    return modal;
+  }
+
+  modal = document.createElement("div");
+  modal.id = "hoursModal";
+  modal.className = "hours-modal";
+  modal.innerHTML = `
+    <div class="hours-modal-backdrop" data-close="true"></div>
+    <div class="hours-modal-panel" role="dialog" aria-modal="true" aria-labelledby="hoursModalTitle">
+      <p class="section-label dark">Infos magasin</p>
+      <h3 id="hoursModalTitle">Horaires</h3>
+      <p class="hours-modal-list" id="hoursModalList"></p>
+      <div class="hours-modal-actions">
+        <button class="hours-modal-close" type="button" data-close="true">Fermer</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.addEventListener("click", (event) => {
+    const closeTarget = event.target.closest("[data-close='true']");
+    if (closeTarget) {
+      closeHoursModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("open")) {
+      closeHoursModal();
+    }
+  });
+
+  return modal;
+}
+
+function openHoursModal() {
+  const modal = ensureHoursModal();
+  const hoursList = document.getElementById("hoursModalList");
+
+  if (hoursList && storeHoursContent) {
+    hoursList.innerHTML = storeHoursContent.innerHTML;
+  }
+
+  modal.classList.add("open");
+  document.body.classList.add("modal-open");
+}
+
+function closeHoursModal() {
+  const modal = document.getElementById("hoursModal");
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+}
+
 function initReviewGalleryLightbox() {
   reviewGalleryLinks = [...document.querySelectorAll(".review-gallery a")];
   if (!reviewGalleryLinks.length) {
@@ -831,6 +894,57 @@ function initReviewGalleryLightbox() {
       moveReviewLightbox(1);
     }
   });
+}
+
+function ensurePreviewWarning() {
+  let warning = document.getElementById("previewWarning");
+  if (warning) {
+    return warning;
+  }
+
+  warning = document.createElement("div");
+  warning.id = "previewWarning";
+  warning.className = "preview-warning";
+  warning.innerHTML = `
+    <div class="preview-warning-backdrop"></div>
+    <div class="preview-warning-panel" role="dialog" aria-modal="true" aria-labelledby="previewWarningTitle">
+      <span class="preview-warning-label">Aperçu privé</span>
+      <h2 id="previewWarningTitle">APERÇU DU SITE</h2>
+      <p>
+        Cette version est fournie uniquement pour la validation visuelle du propriétaire.
+        Le contenu, le design et le code ne sont pas autorisés pour une réutilisation,
+        une copie ou une publication sans accord écrit et sans avoir été acheté.
+      </p>
+      <div class="preview-warning-actions">
+        <button type="button" id="previewWarningConfirm">J'ai compris</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(warning);
+
+  const confirmButton = document.getElementById("previewWarningConfirm");
+  if (confirmButton) {
+    confirmButton.addEventListener("click", closePreviewWarning);
+  }
+
+  return warning;
+}
+
+function openPreviewWarning() {
+  const warning = ensurePreviewWarning();
+  warning.classList.add("open");
+  document.body.classList.add("preview-warning-open");
+}
+
+function closePreviewWarning() {
+  const warning = document.getElementById("previewWarning");
+  if (!warning) {
+    return;
+  }
+
+  warning.classList.remove("open");
+  document.body.classList.remove("preview-warning-open");
 }
 
 if (searchInput) {
@@ -866,3 +980,11 @@ if (menuGrid) {
 
 initEpicerieGalleryLightbox();
 initReviewGalleryLightbox();
+openPreviewWarning();
+
+if (hoursTrigger) {
+  hoursTrigger.addEventListener("click", (event) => {
+    event.preventDefault();
+    openHoursModal();
+  });
+}
