@@ -1311,33 +1311,42 @@ body.modal-open {
 
 @media (max-width: 780px) {
   body {
-    background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
+    background: linear-gradient(180deg, #f2f4f7 0%, #eceff3 100%);
     padding-bottom: calc(196px + env(safe-area-inset-bottom));
   }
 
   .page-shell {
+    max-width: 430px;
+    margin: 0 auto;
     padding: 12px 12px calc(24px + env(safe-area-inset-bottom));
-    gap: 12px;
+    gap: 10px;
   }
 
   .topbar {
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 8px 20px rgba(17, 17, 17, 0.08);
+    background: transparent;
+    border-bottom: 0;
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .topbar-inner {
-    padding: 10px 12px;
+    max-width: 430px;
+    padding: calc(8px + env(safe-area-inset-top)) 10px 8px;
     gap: 8px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
   }
 
   .brand-inline {
+    grid-column: 1 / -1;
     width: 100%;
     gap: 10px;
     padding: 6px 8px;
-    border-radius: 12px;
-    border: 1px solid var(--line);
+    border-radius: 14px;
+    border: 1px solid #d7dde6;
     background: #fff;
+    box-shadow: 0 4px 10px rgba(19, 25, 33, 0.04);
   }
 
   .store-logo {
@@ -1367,25 +1376,36 @@ body.modal-open {
 
   .location-pill {
     order: 3;
+    grid-column: 1 / -1;
     width: 100%;
     min-width: 0;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 9px 11px;
+    border-color: #d7dde6;
+    box-shadow: 0 4px 10px rgba(19, 25, 33, 0.04);
   }
 
   .topbar-actions {
-    margin-left: auto;
+    margin-left: 0;
+    grid-column: 2;
+    grid-row: 2;
   }
 
   .chip-button {
     padding: 10px 13px;
+    border-color: #d7dde6;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(19, 25, 33, 0.04);
   }
 
   .store-hero {
-    border-radius: 18px;
+    border-radius: 20px;
     min-height: 0;
     padding: 16px 14px 14px;
-    background: linear-gradient(135deg, #24110b 0%, #8d4f26 45%, #f2b16c 100%);
+    background:
+      linear-gradient(148deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 42%),
+      linear-gradient(135deg, #2f3339 0%, #4b5663 48%, #6b7787 100%);
+    box-shadow: 0 10px 22px rgba(19, 25, 33, 0.18);
   }
 
   .store-hero-overlay {
@@ -1393,8 +1413,8 @@ body.modal-open {
   }
 
   .hero-logo {
-    width: 52px;
-    height: 52px;
+    width: 46px;
+    height: 46px;
     border-width: 2px;
   }
 
@@ -1423,23 +1443,24 @@ body.modal-open {
   }
 
   .hero-badges span {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   .compact-summary {
-    background: linear-gradient(135deg, #fffaf5 0%, #ffffff 100%);
-    border-color: #f1d7bd;
+    background: #ffffff;
+    border-color: #dbe1ea;
   }
 
   .address-bar {
     background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 10px 22px rgba(17, 17, 17, 0.08);
+    border-color: #d7dde6;
+    box-shadow: 0 4px 10px rgba(19, 25, 33, 0.06);
   }
 
   .address-signin {
-    color: #4f2a1a;
-    background: linear-gradient(135deg, #ffffff 0%, #ffe7cf 100%);
+    color: #2f3135;
+    background: #f1f4f8;
   }
 
   .section-block {
@@ -1468,8 +1489,9 @@ body.modal-open {
   .menu-card-shell,
   .dash-cart,
   .review-card {
-    border-radius: 14px;
-    box-shadow: 0 10px 22px rgba(17, 17, 17, 0.08);
+    border-radius: 16px;
+    border-color: #dbe1ea;
+    box-shadow: 0 6px 14px rgba(19, 25, 33, 0.05);
   }
 
   .featured-strip {
@@ -1478,20 +1500,29 @@ body.modal-open {
 
   .menu-card {
     padding: 12px;
-    gap: 8px;
-    background: linear-gradient(180deg, #ffffff 0%, #fff9f1 100%);
-    border-color: #f0dfcf;
-    border-radius: 18px;
+    gap: 8px 10px;
+    display: grid;
+    grid-template-columns: 82px minmax(0, 1fr);
+    grid-template-areas:
+      "visual header"
+      "visual footer";
+    align-items: start;
+    background: #ffffff;
+    border-color: #dbe1ea;
+    border-radius: 20px;
   }
 
   .menu-card-visual {
-    height: 96px;
-    border-radius: 11px;
+    grid-area: visual;
+    width: 82px;
+    height: 82px;
+    border-radius: 14px;
+    border: 1px solid #e2e7ef;
   }
 
   .menu-card[data-category="Boissons"] .menu-card-visual,
   .menu-card[data-category="Sauces"] .menu-card-visual {
-    height: 76px;
+    height: 82px;
   }
 
   .menu-card[data-category="Boissons"] .menu-card-image img,
@@ -1509,6 +1540,11 @@ body.modal-open {
     margin-bottom: 6px;
   }
 
+  .menu-card-header {
+    grid-area: header;
+    align-items: start;
+  }
+
   .menu-card-header p {
     color: #5e5e5e;
     display: -webkit-box;
@@ -1520,12 +1556,25 @@ body.modal-open {
 
   .menu-card .price {
     font-size: 1.05rem;
+    color: #202228;
+  }
+
+  .menu-card-footer {
+    grid-area: footer;
+    align-items: center;
+    margin-top: 2px;
+  }
+
+  .tag-row {
+    margin-top: 0;
   }
 
   .menu-card .add-button {
     min-height: 42px;
     padding: 8px 16px;
-    font-size: 1rem;
+    font-size: 0.96rem;
+    background: #d94653;
+    border-radius: 12px;
   }
 
   .epicerie-gallery-grid {
@@ -1571,8 +1620,10 @@ body.modal-open {
 
   .rail {
     position: fixed;
-    left: 8px;
-    right: 8px;
+    left: 50%;
+    right: auto;
+    width: min(414px, calc(100vw - 16px));
+    transform: translateX(-50%);
     bottom: calc(76px + env(safe-area-inset-bottom));
     z-index: 35;
     display: grid;
@@ -1580,10 +1631,15 @@ body.modal-open {
     gap: 6px;
     padding: 7px;
     border-radius: 18px;
-    border: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.97);
-    box-shadow: 0 16px 30px rgba(17, 17, 17, 0.2);
+    border: 1px solid #d7dde6;
+    background: rgba(250, 252, 255, 0.95);
+    box-shadow: 0 12px 22px rgba(17, 17, 17, 0.12);
     backdrop-filter: blur(10px);
+  }
+
+  .rail-button.active {
+    background: #e14b55;
+    border-color: #e14b55;
   }
 
   .right-rail,
@@ -1601,7 +1657,7 @@ body.modal-open {
     gap: 3px;
     padding: 7px 4px;
     font-size: 0.96rem;
-    border-color: #e3e3e3;
+    border-color: #d7dde6;
   }
 
   .rail-text {
