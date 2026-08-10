@@ -1843,3 +1843,200 @@ body.category-page {
     padding: 22px;
   }
 }
+
+/* Mobile app refinement: cleaner, less saturated, more native */
+@media (max-width: 780px) {
+  :root {
+    --bg: #f3f5f8;
+    --surface: #ffffff;
+    --line: #d8dee8;
+    --muted: #616a76;
+    --accent: #d44552;
+    --accent-dark: #bf3744;
+    --shadow: 0 4px 10px rgba(20, 28, 38, 0.06);
+  }
+
+  body {
+    background: var(--bg);
+  }
+
+  .topbar {
+    top: 0;
+    border-bottom: 0;
+    background: transparent;
+  }
+
+  .topbar-inner {
+    gap: 8px;
+    padding-top: calc(8px + env(safe-area-inset-top));
+    grid-template-columns: 1fr;
+  }
+
+  .topbar-actions {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: flex-end;
+  }
+
+  .location-pill {
+    display: none;
+  }
+
+  .brand-inline,
+  .chip-button,
+  .address-bar,
+  .compact-summary,
+  .inside-photo-card,
+  .epicerie-gallery-card,
+  .menu-card,
+  .menu-card-shell,
+  .dash-cart,
+  .review-card {
+    border-color: #d8dee8;
+    box-shadow: var(--shadow);
+  }
+
+  .store-hero {
+    background: #ffffff;
+    border: 1px solid #d8dee8;
+    box-shadow: var(--shadow);
+    padding: 12px;
+  }
+
+  .store-hero::before {
+    display: none;
+  }
+
+  .inverse,
+  .store-hero h1,
+  .store-meta {
+    color: #1f2530;
+  }
+
+  .store-hero h1 {
+    font-size: clamp(1rem, 4.8vw, 1.22rem);
+    line-height: 1.2;
+  }
+
+  .store-hero .eyebrow {
+    display: none;
+  }
+
+  .store-meta {
+    color: #5f6874;
+    margin-top: 3px;
+    font-size: 0.74rem;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+
+  .hero-badges {
+    gap: 5px;
+    margin-top: 6px;
+  }
+
+  .hero-badges span {
+    background: #f1f4f8;
+    border-color: #dbe2ec;
+    color: #3b4655;
+    font-weight: 600;
+    font-size: 0.71rem;
+    padding: 5px 9px;
+  }
+
+  .address-signin {
+    background: #f1f4f8;
+    color: #2f3743;
+    border: 1px solid #dbe2ec;
+    box-shadow: none;
+  }
+
+  .featured-strip {
+    gap: 8px;
+  }
+
+  .menu-card {
+    grid-template-columns: 74px minmax(0, 1fr);
+    grid-template-areas:
+      "visual header"
+      "visual footer";
+    gap: 7px 10px;
+    border-radius: 14px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .menu-card-visual {
+    grid-area: visual;
+    width: 74px;
+    height: 74px;
+    border-radius: 12px;
+    border: 1px solid #dfe5ee;
+  }
+
+  .menu-card[data-category="Boissons"] .menu-card-visual,
+  .menu-card[data-category="Sauces"] .menu-card-visual {
+    height: 74px;
+  }
+
+  .menu-card-header {
+    grid-area: header;
+    gap: 8px;
+  }
+
+  .menu-card h4 {
+    font-size: 0.96rem;
+    margin-bottom: 3px;
+  }
+
+  .menu-card p {
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+
+  .menu-card .price {
+    font-size: 0.96rem;
+    color: #1f2530;
+  }
+
+  .menu-card-footer {
+    grid-area: footer;
+    align-items: center;
+  }
+
+  .tag {
+    background: #f2f5f8;
+    color: #5f6874;
+  }
+
+  .menu-card .add-button {
+    min-height: 34px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    background: var(--accent);
+  }
+
+  .rail {
+    background: rgba(248, 250, 253, 0.96);
+    border-color: #d6dde8;
+    box-shadow: 0 10px 22px rgba(20, 28, 38, 0.12);
+    border-radius: 16px;
+    padding: 6px;
+  }
+
+  .rail-button {
+    min-height: 46px;
+    border-radius: 10px;
+    border-color: #d8dee8;
+    background: #fff;
+  }
+
+  .rail-button.active {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+}
