@@ -119,7 +119,7 @@
             <article class="review-submit-card" aria-label="Laisser un avis">
               <h4>Laisser votre avis</h4>
               <p>Votre retour aide les autres clients a choisir leurs repas.</p>
-              <form id="reviewForm" class="review-form" novalidate>
+              <form id="reviewForm" class="review-form" method="post" action="#reviews" novalidate>
                 <label>
                   <span>Votre nom</span>
                   <input id="reviewName" name="name" type="text" maxlength="60" required placeholder="Ex. Marie T." />
@@ -144,7 +144,7 @@
                   <input id="reviewPhoto" name="photo" type="file" accept="image/*" />
                 </label>
                 <p class="review-photo-hint">Formats acceptes: JPG, PNG, WEBP. Taille max: 5 MB.</p>
-                <button class="primary-button" type="submit">Publier mon avis</button>
+                <button id="reviewSubmitButton" class="primary-button" type="button">Publier mon avis</button>
               </form>
               <p id="reviewSubmitMessage" class="review-submit-message" role="status" aria-live="polite"></p>
             </article>
@@ -347,6 +347,6 @@
         bucketName: "review-images"
       };
     </script>
-    <script src="app.js?v=20260810b"></script>
+    <script src="app.js?v=20260810c"></script>
   </body>
 </html>

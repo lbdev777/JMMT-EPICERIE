@@ -217,6 +217,7 @@ const reviewNameInput = document.getElementById("reviewName");
 const reviewRatingInput = document.getElementById("reviewRating");
 const reviewCommentInput = document.getElementById("reviewComment");
 const reviewPhotoInput = document.getElementById("reviewPhoto");
+const reviewSubmitButton = document.getElementById("reviewSubmitButton");
 const reviewSubmitMessage = document.getElementById("reviewSubmitMessage");
 const userReviewsGrid = document.getElementById("userReviewsGrid");
 
@@ -416,7 +417,7 @@ async function submitReviewRemote({ name, rating, comment, imageFile }) {
 }
 
 function initReviewForm() {
-  if (!reviewForm || !reviewNameInput || !reviewRatingInput || !reviewCommentInput || !reviewPhotoInput) {
+  if (!reviewForm || !reviewNameInput || !reviewRatingInput || !reviewCommentInput || !reviewPhotoInput || !reviewSubmitButton) {
     return;
   }
 
@@ -424,8 +425,11 @@ function initReviewForm() {
     setReviewMessage("Mode local actif. Configurez Supabase pour partager les avis entre tous les clients.", "error");
   }
 
-  reviewForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  const handleReviewSubmit = async (event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
     const name = reviewNameInput.value.trim();
     const rating = Number(reviewRatingInput.value);
@@ -489,7 +493,10 @@ function initReviewForm() {
         setReviewMessage("Echec de publication serveur. Verifiez table/policies Supabase.", "error");
       }
     }
-  });
+  };
+
+  reviewForm.addEventListener("submit", handleReviewSubmit);
+  reviewSubmitButton.addEventListener("click", handleReviewSubmit);
 }
 
 function getItemOptions(item) {
