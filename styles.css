@@ -1873,9 +1873,7 @@ body.category-page {
   }
 
   .topbar-actions {
-    grid-column: 1;
-    grid-row: auto;
-    justify-content: flex-end;
+    display: none;
   }
 
   .location-pill {
@@ -1958,6 +1956,20 @@ body.category-page {
     gap: 8px;
   }
 
+  .inside-photo-card img {
+    height: 180px;
+    max-height: none;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .epicerie-gallery-grid img {
+    height: 150px;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+  }
+
   .menu-card {
     grid-template-columns: 74px minmax(0, 1fr);
     grid-template-areas:
@@ -2038,5 +2050,226 @@ body.category-page {
   .rail-button.active {
     background: var(--accent);
     border-color: var(--accent);
+  }
+}
+
+@media (max-width: 520px) {
+  .inside-photo-card img {
+    height: 160px;
+  }
+
+  .epicerie-gallery-grid img {
+    height: 130px;
+  }
+}
+
+/* Final mobile polish: app-first look */
+@media (max-width: 780px) {
+  body {
+    background:
+      radial-gradient(circle at 50% -20%, rgba(76, 98, 129, 0.1), transparent 40%),
+      linear-gradient(180deg, #f4f6fa 0%, #eef2f6 100%);
+  }
+
+  .topbar-inner,
+  .page-shell {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .topbar-inner {
+    padding: calc(8px + env(safe-area-inset-top)) 10px 8px;
+  }
+
+  .brand-inline {
+    border-radius: 16px;
+    padding: 8px 10px;
+    border-color: #d2d9e4;
+    box-shadow: 0 8px 18px rgba(28, 39, 53, 0.08);
+  }
+
+  .page-shell {
+    gap: 12px;
+    padding: 10px 10px calc(30px + env(safe-area-inset-bottom));
+  }
+
+  .store-hero {
+    border-radius: 18px;
+    border-color: #d4dbe6;
+    padding: 12px;
+    background:
+      linear-gradient(0deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)),
+      linear-gradient(125deg, #5d738f 0%, #8b7e73 100%);
+  }
+
+  .store-hero-overlay {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .hero-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+  }
+
+  .store-hero h1 {
+    font-size: 1.22rem;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+
+  .store-meta {
+    font-size: 0.76rem;
+    color: #5a6472;
+  }
+
+  .hero-badges span {
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    background: #ebf0f6;
+    border-color: #d7e0eb;
+  }
+
+  .address-bar {
+    margin-top: 10px;
+    border-radius: 13px;
+    height: 44px;
+    border-color: #d2d9e4;
+  }
+
+  .address-signin {
+    margin-top: 8px;
+    border-radius: 13px;
+    font-weight: 700;
+    border-color: #d2d9e4;
+  }
+
+  .compact-summary {
+    display: none;
+  }
+
+  .inside-photo-card,
+  .epicerie-gallery-card,
+  .menu-card-shell,
+  .dash-cart,
+  .review-card,
+  .menu-card {
+    border-radius: 16px;
+    border-color: #d4dbe6;
+    box-shadow: 0 8px 18px rgba(28, 39, 53, 0.07);
+  }
+
+  .inside-photo-card p {
+    padding: 9px 11px;
+    font-size: 0.88rem;
+    color: #566171;
+  }
+
+  .epicerie-gallery-card {
+    padding: 10px;
+  }
+
+  .epicerie-gallery-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 72%;
+    grid-template-columns: none;
+    gap: 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 2px;
+  }
+
+  .epicerie-gallery-grid a {
+    scroll-snap-align: start;
+  }
+
+  .epicerie-gallery-grid img {
+    height: 128px;
+    border-radius: 12px;
+    border-color: #dbe2ec;
+    object-fit: cover;
+  }
+
+  .section-head h3 {
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-head p,
+  #resultCount {
+    font-size: 0.82rem;
+    color: #647083;
+  }
+
+  .menu-card {
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 8px 10px;
+    padding: 10px;
+  }
+
+  .menu-card-visual {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+  }
+
+  .menu-card[data-category="Boissons"] .menu-card-visual,
+  .menu-card[data-category="Sauces"] .menu-card-visual {
+    height: 80px;
+  }
+
+  .menu-card h4 {
+    font-size: 0.98rem;
+  }
+
+  .menu-card p {
+    font-size: 0.81rem;
+    color: #5d6775;
+  }
+
+  .menu-card .price {
+    font-size: 0.94rem;
+    font-weight: 800;
+  }
+
+  .menu-card .add-button {
+    min-height: 36px;
+    padding: 6px 11px;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    background: linear-gradient(135deg, #d44e59 0%, #c53c4a 100%);
+  }
+
+  .rail {
+    width: min(408px, calc(100vw - 14px));
+    border-radius: 17px;
+    padding: 6px;
+    background: rgba(246, 249, 253, 0.95);
+    border-color: #d4dbe6;
+    box-shadow: 0 14px 28px rgba(24, 34, 46, 0.16);
+  }
+
+  .rail-button {
+    min-height: 45px;
+    border-radius: 11px;
+  }
+
+  .rail-text {
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 520px) {
+  .epicerie-gallery-grid {
+    grid-auto-columns: 84%;
+  }
+
+  .inside-photo-card img {
+    height: 164px;
   }
 }
