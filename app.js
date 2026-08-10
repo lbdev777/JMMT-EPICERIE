@@ -212,6 +212,12 @@ const searchInput = document.getElementById("menuSearchInput");
 const resultCount = document.getElementById("resultCount");
 const hoursTrigger = document.getElementById("openHoursModal");
 const storeHoursContent = document.getElementById("storeHoursContent");
+const reviewForm = document.getElementById("reviewForm");
+const reviewNameInput = document.getElementById("reviewName");
+const reviewRatingInput = document.getElementById("reviewRating");
+const reviewCommentInput = document.getElementById("reviewComment");
+const reviewSubmitMessage = document.getElementById("reviewSubmitMessage");
+const userReviewsGrid = document.getElementById("userReviewsGrid");
 
 const meatOptions = ["Poulet", "Viande hachée", "Merguez", "Veau"];
 const assietteMixteMeatOptions = ["Poulet", "Viande hachée", "Merguez"];
@@ -220,6 +226,122 @@ const sauceOptions = ["Algérienne", "Andalouse", "Fromagère", "Harissa", "Ketc
 let activeCategory = "Tout";
 let searchTerm = "";
 let activeItem = null;
+const USER_REVIEWS_STORAGE_KEY = "jmmt-user-reviews-v1";
+
+function getStoredUserReviews() {
+  try {
+    const raw = localStorage.getItem(USER_REVIEWS_STORAGE_KEY);
+    if (!raw) {
+      return [];
+    }
+
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed.filter((entry) => entry && typeof entry.name === "string" && typeof entry.comment === "string");
+  } catch (_error) {
+    return [];
+  }
+}
+
+function saveUserReviews(reviews) {
+  localStorage.setItem(USER_REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
+}
+
+function formatReviewDate(timestamp) {
+  const date = new Date(timestamp);
+  return new Intl.DateTimeFormat("fr-CA", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+
+function createUserReviewCard(review) {
+  return `
+    <article class="review-card">
+      <div class="review-card-head">
+        <strong>${review.name}</strong>
+        <span>${formatReviewDate(review.createdAt)} · ${Number(review.rating).toFixed(1).replace(".", ",")}</span>
+      </div>
+      <p>${review.comment}</p>
+      <div class="review-tags">
+        <span>Avis client</span>
+        <span>Site JMMT</span>
+      </div>
+    </article>
+  `;
+}
+
+function renderUserReviews() {
+  if (!userReviewsGrid) {
+    return;
+  }
+
+  const reviews = getStoredUserReviews();
+  if (!reviews.length) {
+    userReviewsGrid.innerHTML = "";
+    return;
+  }
+
+  userReviewsGrid.innerHTML = reviews
+    .slice()
+    .sort((a, b) => b.createdAt - a.createdAt)
+    .map((review) => createUserReviewCard(review))
+    .join("");
+}
+
+function setReviewMessage(text, type) {
+  if (!reviewSubmitMessage) {
+    return;
+  }
+
+  reviewSubmitMessage.textContent = text;
+  reviewSubmitMessage.classList.remove("success", "error");
+  if (type) {
+    reviewSubmitMessage.classList.add(type);
+  }
+}
+
+function initReviewForm() {
+  if (!reviewForm || !reviewNameInput || !reviewRatingInput || !reviewCommentInput) {
+    return;
+  }
+
+  reviewForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = reviewNameInput.value.trim();
+    const rating = Number(reviewRatingInput.value);
+    const comment = reviewCommentInput.value.trim();
+
+    if (!name || !comment || !rating) {
+      setReviewMessage("Veuillez remplir tous les champs.", "error");
+      return;
+    }
+
+    if (comment.length < 8) {
+      setReviewMessage("Le commentaire doit avoir au moins 8 caracteres.", "error");
+      return;
+    }
+
+    const reviews = getStoredUserReviews();
+    reviews.push({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      name,
+      rating,
+      comment,
+      createdAt: Date.now(),
+    });
+
+    saveUserReviews(reviews);
+    renderUserReviews();
+    reviewForm.reset();
+    setReviewMessage("Merci! Votre avis a ete publie.", "success");
+  });
+}
 
 function getItemOptions(item) {
   const options = [];
@@ -940,6 +1062,8 @@ if (menuGrid) {
 initEpicerieGalleryLightbox();
 initReviewGalleryLightbox();
 removeLegacyPhoneRow();
+renderUserReviews();
+initReviewForm();
 
 if (hoursTrigger) {
   hoursTrigger.addEventListener("click", (event) => {

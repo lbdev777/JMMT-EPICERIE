@@ -116,7 +116,37 @@
               <a class="text-button" href="https://www.google.com/search?sca_esv=6a3fe383592f5408&sxsrf=APpeQnsUINjX0PhFFAuorokyk25knFdGZQ:1785379279941&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_xEuXkWyZuP4E8l8r6xIOT86LlGyA7Hi86NTSt8s54H624atnvnJ1zNwAZJRKk4g0pF4YAPTkaIXei_M1WBcCiLMLuk0HEFJiuxTD5uEu2DIpSEiR_VGRzfwff4hLVR4hKGRlGk%3D&q=JMMT+%C3%89PICERIE.RESTAURANT+BOUCHERIE.+Avis&sa=X&ved=2ahUKEwi0tJSOsPmVAxVwj4kEHavFInwQ0bkNegQIJxAF&biw=1920&bih=945&dpr=1" target="_blank" rel="noreferrer">Voir tous les avis</a>
             </div>
 
-            <div class="reviews-grid">
+            <article class="review-submit-card" aria-label="Laisser un avis">
+              <h4>Laisser votre avis</h4>
+              <p>Votre retour aide les autres clients a choisir leurs repas.</p>
+              <form id="reviewForm" class="review-form" novalidate>
+                <label>
+                  <span>Votre nom</span>
+                  <input id="reviewName" name="name" type="text" maxlength="60" required placeholder="Ex. Marie T." />
+                </label>
+                <label>
+                  <span>Note</span>
+                  <select id="reviewRating" name="rating" required>
+                    <option value="" selected disabled>Choisir une note</option>
+                    <option value="5">5,0</option>
+                    <option value="4">4,0</option>
+                    <option value="3">3,0</option>
+                    <option value="2">2,0</option>
+                    <option value="1">1,0</option>
+                  </select>
+                </label>
+                <label class="review-form-full">
+                  <span>Commentaire</span>
+                  <textarea id="reviewComment" name="comment" rows="4" maxlength="400" required placeholder="Partagez votre experience..."></textarea>
+                </label>
+                <button class="primary-button" type="submit">Publier mon avis</button>
+              </form>
+              <p id="reviewSubmitMessage" class="review-submit-message" role="status" aria-live="polite"></p>
+            </article>
+
+            <div class="reviews-grid" id="userReviewsGrid" aria-label="Avis des clients du site"></div>
+
+            <div class="reviews-grid" id="featuredReviewsGrid">
               <article class="review-card">
                 <div class="review-card-head">
                   <strong>Joël Labrosse-Blier</strong>
@@ -303,7 +333,6 @@
       </aside>
     </div>
 
-    <script src="app.js?v=20260809c"></script>
     <script src="app.js?v=20260810a"></script>
   </body>
 </html>
