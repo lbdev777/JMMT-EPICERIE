@@ -230,11 +230,10 @@ let searchTerm = "";
 let activeItem = null;
 const USER_REVIEWS_STORAGE_KEY = "jmmt-user-reviews-v1";
 const MAX_REVIEW_IMAGE_BYTES = 5 * 1024 * 1024;
+const reviewConfig = window.JMMT_REVIEW_CONFIG || {};
 const hasRemoteReviewConfig =
   typeof reviewConfig.supabaseUrl === "string" && reviewConfig.supabaseUrl.length > 0 &&
   typeof reviewConfig.supabaseAnonKey === "string" && reviewConfig.supabaseAnonKey.length > 0;
-
-const reviewConfig = window.JMMT_REVIEW_CONFIG || {};
 const supabaseConfigured =
   typeof window.supabase !== "undefined" &&
   typeof reviewConfig.supabaseUrl === "string" && reviewConfig.supabaseUrl.length > 0 &&
