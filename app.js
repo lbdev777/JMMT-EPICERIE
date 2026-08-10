@@ -229,6 +229,9 @@ let searchTerm = "";
 let activeItem = null;
 const USER_REVIEWS_STORAGE_KEY = "jmmt-user-reviews-v1";
 const MAX_REVIEW_IMAGE_BYTES = 5 * 1024 * 1024;
+const hasRemoteReviewConfig =
+  typeof reviewConfig.supabaseUrl === "string" && reviewConfig.supabaseUrl.length > 0 &&
+  typeof reviewConfig.supabaseAnonKey === "string" && reviewConfig.supabaseAnonKey.length > 0;
 
 const reviewConfig = window.JMMT_REVIEW_CONFIG || {};
 const supabaseConfigured =
@@ -475,12 +478,16 @@ function initReviewForm() {
       reviewForm.reset();
       setReviewMessage("Merci! Votre avis est maintenant visible pour tous.", "success");
     } catch (_error) {
-      const reviews = getStoredUserReviews();
-      reviews.push(payload);
-      saveUserReviews(reviews);
-      await renderUserReviews();
-      reviewForm.reset();
-      setReviewMessage("Erreur serveur. Avis enregistre localement temporairement.", "error");
+      if (!hasRemoteReviewConfig) {
+        const reviews = getStoredUserReviews();
+        reviews.push(payload);
+        saveUserReviews(reviews);
+        await renderUserReviews();
+        reviewForm.reset();
+        setReviewMessage("Avis enregistre localement sur cet appareil.", "error");
+      } else {
+        setReviewMessage("Echec de publication serveur. Verifiez table/policies Supabase.", "error");
+      }
     }
   });
 }
