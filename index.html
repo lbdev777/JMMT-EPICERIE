@@ -139,6 +139,11 @@
                   <span>Commentaire</span>
                   <textarea id="reviewComment" name="comment" rows="4" maxlength="400" required placeholder="Partagez votre experience..."></textarea>
                 </label>
+                <label class="review-form-full">
+                  <span>Photo (optionnel)</span>
+                  <input id="reviewPhoto" name="photo" type="file" accept="image/*" />
+                </label>
+                <p class="review-photo-hint">Formats acceptes: JPG, PNG, WEBP. Taille max: 5 MB.</p>
                 <button class="primary-button" type="submit">Publier mon avis</button>
               </form>
               <p id="reviewSubmitMessage" class="review-submit-message" role="status" aria-live="polite"></p>
@@ -333,6 +338,15 @@
       </aside>
     </div>
 
-    <script src="app.js?v=20260810a"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      window.JMMT_REVIEW_CONFIG = {
+        supabaseUrl: "",
+        supabaseAnonKey: "",
+        tableName: "reviews",
+        bucketName: "review-images"
+      };
+    </script>
+    <script src="app.js?v=20260810b"></script>
   </body>
 </html>

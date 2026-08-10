@@ -1180,6 +1180,13 @@ body.modal-open {
   grid-column: 1 / -1;
 }
 
+.review-photo-hint {
+  grid-column: 1 / -1;
+  margin: -2px 0 0;
+  font-size: 0.78rem;
+  color: #666;
+}
+
 .review-submit-message {
   min-height: 1.2em;
   font-size: 0.86rem;
@@ -1277,6 +1284,14 @@ body.modal-open {
   border: 1px solid var(--line);
   background: #f4f4f4;
   transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.review-card.user-submitted .review-gallery {
+  grid-template-columns: 1fr;
+}
+
+.review-card.user-submitted .review-gallery img {
+  height: 220px;
 }
 
 .cart-item {
@@ -2294,6 +2309,10 @@ body.category-page {
 
   .review-form-full,
   .review-form .primary-button {
+    grid-column: auto;
+  }
+
+  .review-photo-hint {
     grid-column: auto;
   }
 

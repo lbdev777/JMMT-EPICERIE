@@ -216,6 +216,7 @@ const reviewForm = document.getElementById("reviewForm");
 const reviewNameInput = document.getElementById("reviewName");
 const reviewRatingInput = document.getElementById("reviewRating");
 const reviewCommentInput = document.getElementById("reviewComment");
+const reviewPhotoInput = document.getElementById("reviewPhoto");
 const reviewSubmitMessage = document.getElementById("reviewSubmitMessage");
 const userReviewsGrid = document.getElementById("userReviewsGrid");
 
@@ -227,6 +228,17 @@ let activeCategory = "Tout";
 let searchTerm = "";
 let activeItem = null;
 const USER_REVIEWS_STORAGE_KEY = "jmmt-user-reviews-v1";
+const MAX_REVIEW_IMAGE_BYTES = 5 * 1024 * 1024;
+
+const reviewConfig = window.JMMT_REVIEW_CONFIG || {};
+const supabaseConfigured =
+  typeof window.supabase !== "undefined" &&
+  typeof reviewConfig.supabaseUrl === "string" && reviewConfig.supabaseUrl.length > 0 &&
+  typeof reviewConfig.supabaseAnonKey === "string" && reviewConfig.supabaseAnonKey.length > 0;
+
+const supabaseClient = supabaseConfigured
+  ? window.supabase.createClient(reviewConfig.supabaseUrl, reviewConfig.supabaseAnonKey)
+  : null;
 
 function getStoredUserReviews() {
   try {
@@ -261,12 +273,19 @@ function formatReviewDate(timestamp) {
 
 function createUserReviewCard(review) {
   return `
-    <article class="review-card">
+    <article class="review-card user-submitted">
       <div class="review-card-head">
         <strong>${review.name}</strong>
         <span>${formatReviewDate(review.createdAt)} · ${Number(review.rating).toFixed(1).replace(".", ",")}</span>
       </div>
       <p>${review.comment}</p>
+      ${review.imageUrl ? `
+      <div class="review-gallery">
+        <a href="${review.imageUrl}" target="_blank" rel="noreferrer" aria-label="Ouvrir la photo partagee par ${review.name}">
+          <img src="${review.imageUrl}" alt="Photo partagee par ${review.name}" />
+        </a>
+      </div>
+      ` : ""}
       <div class="review-tags">
         <span>Avis client</span>
         <span>Site JMMT</span>
@@ -275,12 +294,49 @@ function createUserReviewCard(review) {
   `;
 }
 
-function renderUserReviews() {
+async function fetchRemoteReviews() {
+  if (!supabaseClient) {
+    return null;
+  }
+
+  const tableName = reviewConfig.tableName || "reviews";
+  const { data, error } = await supabaseClient
+    .from(tableName)
+    .select("id,name,rating,comment,image_url,created_at")
+    .order("created_at", { ascending: false })
+    .limit(120);
+
+  if (error) {
+    throw error;
+  }
+
+  return (data || []).map((entry) => ({
+    id: entry.id,
+    name: entry.name,
+    rating: Number(entry.rating),
+    comment: entry.comment,
+    imageUrl: entry.image_url || "",
+    createdAt: new Date(entry.created_at).getTime(),
+  }));
+}
+
+async function renderUserReviews() {
   if (!userReviewsGrid) {
     return;
   }
 
-  const reviews = getStoredUserReviews();
+  let reviews = [];
+  if (supabaseClient) {
+    try {
+      reviews = (await fetchRemoteReviews()) || [];
+    } catch (_error) {
+      reviews = getStoredUserReviews();
+      setReviewMessage("Serveur avis indisponible. Affichage local temporaire.", "error");
+    }
+  } else {
+    reviews = getStoredUserReviews();
+  }
+
   if (!reviews.length) {
     userReviewsGrid.innerHTML = "";
     return;
@@ -291,6 +347,8 @@ function renderUserReviews() {
     .sort((a, b) => b.createdAt - a.createdAt)
     .map((review) => createUserReviewCard(review))
     .join("");
+
+  initReviewGalleryLightbox();
 }
 
 function setReviewMessage(text, type) {
@@ -305,17 +363,71 @@ function setReviewMessage(text, type) {
   }
 }
 
+function sanitizeFileName(name) {
+  return name.replace(/[^a-zA-Z0-9._-]/g, "-").slice(0, 80);
+}
+
+async function uploadReviewImage(file) {
+  if (!supabaseClient || !file) {
+    return "";
+  }
+
+  const bucketName = reviewConfig.bucketName || "review-images";
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+  const path = `reviews/${Date.now()}-${sanitizeFileName(file.name || `image.${ext}`)}`;
+
+  const { error: uploadError } = await supabaseClient.storage.from(bucketName).upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+    contentType: file.type || "image/jpeg",
+  });
+
+  if (uploadError) {
+    throw uploadError;
+  }
+
+  const { data } = supabaseClient.storage.from(bucketName).getPublicUrl(path);
+  return data?.publicUrl || "";
+}
+
+async function submitReviewRemote({ name, rating, comment, imageFile }) {
+  if (!supabaseClient) {
+    return false;
+  }
+
+  const imageUrl = imageFile ? await uploadReviewImage(imageFile) : "";
+  const tableName = reviewConfig.tableName || "reviews";
+
+  const { error } = await supabaseClient.from(tableName).insert({
+    name,
+    rating,
+    comment,
+    image_url: imageUrl,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  return true;
+}
+
 function initReviewForm() {
-  if (!reviewForm || !reviewNameInput || !reviewRatingInput || !reviewCommentInput) {
+  if (!reviewForm || !reviewNameInput || !reviewRatingInput || !reviewCommentInput || !reviewPhotoInput) {
     return;
   }
 
-  reviewForm.addEventListener("submit", (event) => {
+  if (!supabaseClient) {
+    setReviewMessage("Mode local actif. Configurez Supabase pour partager les avis entre tous les clients.", "error");
+  }
+
+  reviewForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const name = reviewNameInput.value.trim();
     const rating = Number(reviewRatingInput.value);
     const comment = reviewCommentInput.value.trim();
+    const imageFile = reviewPhotoInput.files && reviewPhotoInput.files[0] ? reviewPhotoInput.files[0] : null;
 
     if (!name || !comment || !rating) {
       setReviewMessage("Veuillez remplir tous les champs.", "error");
@@ -327,19 +439,49 @@ function initReviewForm() {
       return;
     }
 
-    const reviews = getStoredUserReviews();
-    reviews.push({
+    if (imageFile && imageFile.size > MAX_REVIEW_IMAGE_BYTES) {
+      setReviewMessage("Image trop lourde. Maximum 5 MB.", "error");
+      return;
+    }
+
+    setReviewMessage("Publication en cours...", "");
+
+    const payload = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       name,
       rating,
       comment,
+      imageUrl: "",
       createdAt: Date.now(),
-    });
+    };
 
-    saveUserReviews(reviews);
-    renderUserReviews();
-    reviewForm.reset();
-    setReviewMessage("Merci! Votre avis a ete publie.", "success");
+    if (!supabaseClient) {
+      if (imageFile) {
+        setReviewMessage("En mode local, l'image n'est pas partagee avec tous les clients.", "error");
+      }
+
+      const reviews = getStoredUserReviews();
+      reviews.push(payload);
+      saveUserReviews(reviews);
+      await renderUserReviews();
+      reviewForm.reset();
+      setReviewMessage("Avis publie localement sur cet appareil.", "success");
+      return;
+    }
+
+    try {
+      await submitReviewRemote({ name, rating, comment, imageFile });
+      await renderUserReviews();
+      reviewForm.reset();
+      setReviewMessage("Merci! Votre avis est maintenant visible pour tous.", "success");
+    } catch (_error) {
+      const reviews = getStoredUserReviews();
+      reviews.push(payload);
+      saveUserReviews(reviews);
+      await renderUserReviews();
+      reviewForm.reset();
+      setReviewMessage("Erreur serveur. Avis enregistre localement temporairement.", "error");
+    }
   });
 }
 
